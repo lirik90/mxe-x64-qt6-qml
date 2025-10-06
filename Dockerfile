@@ -73,5 +73,10 @@ RUN cd mxe \
 FROM debian:13-slim
 COPY --from=builder /opt/mxe.tar.xz /opt/mxe/
 COPY --from=builder /usr/bin/xz /usr/bin/xz
-RUN apt-get -yq purge perl; \
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get -yq update \
+	&& apt-get -yq upgrade \
+	&& apt-get -yq purge perl; \
+	apt-get clean; \
 	rm /usr/bin/perl
