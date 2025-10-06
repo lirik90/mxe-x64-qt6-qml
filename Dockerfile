@@ -1,4 +1,4 @@
-FROM debian:12-slim AS builder
+FROM debian:13-slim AS builder
 
 ENV DEBIAN_FRONTEND=noninteractive
 
@@ -70,7 +70,7 @@ RUN cd mxe \
 RUN cd mxe \
 	&& tar -cJf /opt/mxe.tar.xz ./usr ./.ccache
 
-FROM debian:12-slim
+FROM debian:13-slim
 COPY --from=builder /opt/mxe.tar.xz /opt/mxe/
 COPY --from=builder /usr/bin/xz /usr/bin/xz
 RUN apt-get -yq purge perl; \
